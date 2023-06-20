@@ -1,9 +1,9 @@
 {
-  "name": "gfcodingchallenge",
-  "displayName": "Gfcodingchallenge",
+  "name": "gz-gfcodingchallenge",
+  "displayName": "gz-Gfcodingchallenge",
   "version": "0.0.1",
   "description": "Coding Challenge for Front End Engineer at Give Freely",
-  "author": "brendanbuono",
+  "author": "gabyzif",
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build",
