@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 
 import { fetchApiData } from "../core/fetch-api"
 
-const PlasmoMainUI = () => {
+const BannerUi = () => {
   const [matches, setMatches] = useState<string[]>([])
   const [randomMessage, setRandomMessage] = useState<string>("")
 
@@ -76,4 +76,4 @@ const PlasmoMainUI = () => {
   )
 }
 
-export default PlasmoMainUI
+export default BannerUi

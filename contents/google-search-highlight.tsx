@@ -1,3 +1,4 @@
+// google-search-highlight.tsx
 import type { PlasmoCSConfig } from "plasmo"
 
 import { fetchApiData } from "../core/fetch-api"
@@ -6,19 +7,20 @@ export const config: PlasmoCSConfig = {
   matches: ["https://www.google.com/*"]
 }
 
-window.addEventListener("load", fetchUrls)
+window.addEventListener("load", () => {
+  fetchUrls()
+})
 
-async function fetchUrls() {
+export async function fetchUrls() {
   const { websites, error } = await fetchApiData()
-  console.log(websites, "websites")
   if (!error) {
     highlightSearchResults(websites)
   }
 }
 
-function highlightSearchResults(urls: { url: string }[]) {
+export function highlightSearchResults(urls: { url: string }[]) {
   const searchResults = document.querySelectorAll(".g")
-  searchResults.forEach((result) => {
+  searchResults.forEach((result: HTMLElement) => {
     const link = result.querySelector("a")
     if (link) {
       const resultUrl = link.href
@@ -32,5 +34,3 @@ function highlightSearchResults(urls: { url: string }[]) {
     }
   })
 }
-
-fetchUrls()

@@ -1,6 +1,16 @@
-export async function fetchApiData() {
-  let websites = []
-  let error = null
+interface Website {
+  url: string
+}
+
+interface FetchApiDataResponse {
+  websites: Website[]
+  error: string | null
+}
+
+export async function fetchApiData(): Promise<FetchApiDataResponse> {
+  let websites: Website[] = []
+  let error: string | null = null
+
   try {
     const response = await fetch(
       "https://api.jsonbin.io/v3/b/64678cf09d312622a36121b8",
@@ -14,14 +24,14 @@ export async function fetchApiData() {
 
     if (response.ok) {
       const data = await response.json()
-      const urls = data.record.websites || []
+      const urls: Website[] = data.record.websites || []
       websites = urls
     } else {
-      error.message = "Failed to fetch API data"
+      error = "Failed to fetch API data"
     }
-  } catch (error) {
-    error.message = "Error fetching API data"
-    console.error("Error fetching API data:", error)
+  } catch (err) {
+    error = "Error fetching API data"
+    console.error("Error fetching API data:", err)
   }
 
   return { websites, error }

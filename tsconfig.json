@@ -6,6 +6,9 @@
     "paths": {
       "~*": ["./*"]
     },
+    "module": "CommonJS",
+    "verbatimModuleSyntax": false,
+
     "baseUrl": "."
   }
 }
