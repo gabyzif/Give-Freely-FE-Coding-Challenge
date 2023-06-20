@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.title {
+  margin-bottom: 16px;
+}
+
+.companyList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.companyItem {
+  margin-bottom: 8px;
+}
+
+.companyButton {
+  background-color: #f0f0f0;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.selectedCompany {
+  margin-top: 16px;
+}
+
+.messagesList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.backButton {
+  background-color: #f0f0f0;
+  border: none;
+  padding: 8px;
+  margin-bottom: 8px;
+  cursor: pointer;
+}

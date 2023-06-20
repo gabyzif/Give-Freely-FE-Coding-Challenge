@@ -1,5 +1,5 @@
 import iconBase64 from "data-base64:~assets/icon.png"
-import cssText from "data-text:~/contents/google-sidebar.css"
+import cssText from "data-text:~/styles/google-sidebar.css"
 import type { PlasmoCSConfig } from "plasmo"
 import { useEffect, useState } from "react"
 
@@ -9,34 +9,34 @@ export const config: PlasmoCSConfig = {
   matches: ["https://www.google.com/*"]
 }
 
-export const getStyle = () => {
+export const getStyle = (): HTMLStyleElement => {
   const style = document.createElement("style")
   style.textContent = cssText
   return style
 }
 
-export const getShadowHostId = () => "plasmo-google-sidebar"
+export const getShadowHostId = (): string => "plasmo-google-sidebar"
 
-const GoogleBellAddOn = () => {
-  const [isOpen, setIsOpen] = useState(true)
-  const [modalOpen, setModalOpen] = useState(false)
-  const [randomMessage, setRandomMessage] = useState("")
-  const [randomName, setRandomName] = useState("")
+const GoogleBellAddOn = (): JSX.Element => {
+  const [isOpen, setIsOpen] = useState<boolean>(true)
+  const [modalOpen, setModalOpen] = useState<boolean>(false)
+  const [randomMessage, setRandomMessage] = useState<string>("")
+  const [randomName, setRandomName] = useState<string>("")
 
-  const [websites, setWebsites] = useState([])
+  const [websites, setWebsites] = useState<any[]>([])
 
   useEffect(() => {
     document.body.classList.toggle("plasmo-google-sidebar-show", isOpen)
   }, [isOpen])
 
-  const getData = async () => {
+  const getData = async (): Promise<void> => {
     const { websites: urls, error } = await fetchApiData()
     if (!error) {
       setWebsites(urls)
     }
   }
 
-  const handleBellClick = () => {
+  const handleBellClick = (): void => {
     const randomIndexWebsite = Math.floor(Math.random() * websites.length)
     const randomIndexMessage = Math.floor(Math.random() * websites.length)
 

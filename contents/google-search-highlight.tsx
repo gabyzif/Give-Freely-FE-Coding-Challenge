@@ -8,7 +8,6 @@ export const config: PlasmoCSConfig = {
 
 window.addEventListener("load", fetchUrls)
 
-// Function to fetch the URLs from the API
 async function fetchUrls() {
   const { websites, error } = await fetchApiData()
   console.log(websites, "websites")
@@ -17,22 +16,21 @@ async function fetchUrls() {
   }
 }
 
-// Function to highlight search results with matching URLs
-function highlightSearchResults(urls) {
+function highlightSearchResults(urls: { url: string }[]) {
   const searchResults = document.querySelectorAll(".g")
   searchResults.forEach((result) => {
     const link = result.querySelector("a")
     if (link) {
       const resultUrl = link.href
-      // Check if the search result URL matches any of the fetched URLs
       const matchingUrl = urls.find((u) => resultUrl.includes(u.url))
 
       if (matchingUrl) {
-        result.style.border = "2px solid blue"
+        result.style.border = "2px solid #afe8bd"
+        result.style.padding = "40px"
+        result.style.borderRadius = "4px"
       }
     }
   })
 }
 
-// Run the function to fetch URLs and highlight search results
 fetchUrls()

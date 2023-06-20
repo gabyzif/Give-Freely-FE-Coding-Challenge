@@ -66,8 +66,8 @@ const PlasmoMainUI = () => {
         <div
           style={{
             padding: 8,
-            background: "pink",
-            color: "white"
+            background: "#afe8bd",
+            color: "black"
           }}>
           <h1>{`Message: ${randomMessage}`}</h1>
         </div>

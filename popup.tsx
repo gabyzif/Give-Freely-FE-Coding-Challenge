@@ -1,10 +1,17 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 
 import { fetchApiData } from "./core/fetch-api"
 
+import "./styles/popup.css"
+
+interface Company {
+  name: string
+  messages: string[]
+}
+
 function IndexPopup() {
-  const [companies, setCompanies] = useState([])
-  const [selectedCompany, setSelectedCompany] = useState(null)
+  const [companies, setCompanies] = useState<Company[]>([])
+  const [selectedCompany, setSelectedCompany] = useState<Company | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,7 +30,7 @@ function IndexPopup() {
     fetchData()
   }, [])
 
-  const handleCompanyClick = (company) => {
+  const handleCompanyClick = (company: Company) => {
     setSelectedCompany(company)
   }
 
@@ -32,43 +39,33 @@ function IndexPopup() {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        padding: 16
-      }}>
-      <h2>
-        Welcome to your{" "}
-        <a href="https://www.plasmo.com" target="_blank">
-          Plasmo
-        </a>{" "}
-        Extension!
-      </h2>
+    <div className="container">
+      <h2 className="title">Welcome to your GiveFreely Extension!</h2>
       {selectedCompany ? (
         <>
-          <button onClick={handleBackClick}>Go Back</button>
+          <button className="backButton" onClick={handleBackClick}>
+            Go Back
+          </button>
           <h3>{selectedCompany.name}</h3>
-          <ul>
+          <ul className="messagesList">
             {selectedCompany.messages.map((message, index) => (
               <li key={index}>{message}</li>
             ))}
           </ul>
         </>
       ) : (
-        <ul>
+        <ul className="companyList">
           {companies.map((company, index) => (
-            <li key={index}>
-              <button onClick={() => handleCompanyClick(company)}>
+            <li className="companyItem" key={index}>
+              <button
+                className="companyButton"
+                onClick={() => handleCompanyClick(company)}>
                 {company.name}
               </button>
             </li>
           ))}
         </ul>
       )}
-      <a href="https://docs.plasmo.com" target="_blank">
-        View Docs
-      </a>
     </div>
   )
 }
