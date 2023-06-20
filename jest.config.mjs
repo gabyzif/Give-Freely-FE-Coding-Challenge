@@ -19,7 +19,11 @@ const config = {
   transform: {
     "^.+\\.ts?$": ["ts-jest", { isolatedModules: true, useESM: true }],
     "^.+\\.tsx?$": ["ts-jest", { useESM: true, tsconfig: { jsx: "react-jsx" } }]
-  }
+  },
+  transformIgnorePatterns: [
+    "node_modules/(?!data-text:|data-base64:).+\\.css$",
+    "node_modules/(?!data-text:|data-base64:).+\\.png$"
+  ]
 }
 
 export default config

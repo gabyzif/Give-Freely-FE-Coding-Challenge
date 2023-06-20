@@ -1,5 +1,3 @@
-import iconBase64 from "data-base64:~assets/icon.png"
-import cssText from "data-text:~/styles/google-sidebar.css"
 import type { PlasmoCSConfig } from "plasmo"
 import { useEffect, useState } from "react"
 
@@ -11,7 +9,65 @@ export const config: PlasmoCSConfig = {
 
 export const getStyle = (): HTMLStyleElement => {
   const style = document.createElement("style")
-  style.textContent = cssText
+  style.textContent = `
+    /* Inline CSS content here */
+    .bell-notification {
+      position: fixed;
+      z-index: 999;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      background-color: #afe8bd;
+      border: none;
+      border-radius: 50%;
+      color: #000;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .modal {
+      position: fixed;
+      z-index: 999;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      width: 300px;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    h3 {
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin-bottom: 20px;
+    }
+  `
   return style
 }
 
@@ -40,8 +96,8 @@ const GoogleBellAddOn = (): JSX.Element => {
     const randomIndexWebsite = Math.floor(Math.random() * websites.length)
     const randomIndexMessage = Math.floor(Math.random() * websites.length)
 
-    setRandomName(websites[randomIndexWebsite].name)
-    setRandomMessage(websites[randomIndexWebsite].messages[randomIndexMessage])
+    setRandomName(websites[randomIndexWebsite]?.name)
+    setRandomMessage(websites[randomIndexWebsite]?.messages[randomIndexMessage])
 
     setModalOpen(true)
   }
@@ -52,14 +108,20 @@ const GoogleBellAddOn = (): JSX.Element => {
 
   return (
     <div>
-      <button className="bell-notification" onClick={handleBellClick}>
+      <button
+        className="bell-notification"
+        onClick={handleBellClick}
+        role="button">
         🔔
       </button>
       {modalOpen && (
-        <div className="modal">
+        <div className="modal" role="dialog">
           <div className="modal-content">
-            <button className="modal-close" onClick={() => setModalOpen(false)}>
-              ✖
+            <button
+              className="modal-close"
+              onClick={() => setModalOpen(false)}
+              role="button">
+              X
             </button>
             <h3>{randomName}</h3>
             <p>{randomMessage}</p>
