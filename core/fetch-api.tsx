@@ -1,5 +1,6 @@
 interface Website {
   url: string
+  messages: string[] // Add this line to include the messages property
 }
 
 interface FetchApiDataResponse {
