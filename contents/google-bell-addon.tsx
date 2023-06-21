@@ -78,6 +78,7 @@ const GoogleBellAddOn = (): JSX.Element => {
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const [randomMessage, setRandomMessage] = useState<string>("")
   const [randomName, setRandomName] = useState<string>("")
+  const [loading, setLoading] = useState<boolean>(false)
 
   const [websites, setWebsites] = useState<any[]>([])
 
@@ -86,26 +87,37 @@ const GoogleBellAddOn = (): JSX.Element => {
   }, [isOpen])
 
   const getData = async (): Promise<void> => {
+    setLoading(true)
     const { websites: urls, error } = await fetchApiData()
-    if (!error) {
+    if (urls.length > 0) {
       setWebsites(urls)
     }
+    setLoading(false)
   }
-
-  const handleBellClick = (): void => {
-    const randomIndexWebsite = Math.floor(Math.random() * websites.length)
-    const randomIndexMessage = Math.floor(Math.random() * websites.length)
-
-    setRandomName(websites[randomIndexWebsite]?.name)
-    setRandomMessage(websites[randomIndexWebsite]?.messages[randomIndexMessage])
-
-    setModalOpen(true)
-  }
-
   useEffect(() => {
     getData()
   }, [])
 
+  useEffect(() => {
+    if (websites.length > 0) {
+      const randomIndexWebsite = Math.floor(Math.random() * websites.length)
+      const randomIndexMessage = Math.floor(Math.random() * websites.length)
+      setRandomName(websites[randomIndexWebsite]?.name)
+      setRandomMessage(
+        websites[randomIndexWebsite]?.messages[randomIndexMessage]
+      )
+    }
+  }, [websites])
+
+  const handleBellClick = (): void => {
+    const randomIndexWebsite = Math.floor(Math.random() * websites.length)
+    const randomIndexMessage = Math.floor(
+      Math.random() * websites[randomIndexWebsite]?.messages.length
+    )
+    setRandomName(websites[randomIndexWebsite]?.name)
+    setRandomMessage(websites[randomIndexWebsite]?.messages[randomIndexMessage])
+    setModalOpen(true)
+  }
   return (
     <div>
       <button
@@ -123,8 +135,14 @@ const GoogleBellAddOn = (): JSX.Element => {
               role="button">
               X
             </button>
-            <h3>{randomName}</h3>
-            <p>{randomMessage}</p>
+            {loading ? (
+              <h2>Loading...</h2>
+            ) : (
+              <>
+                <h3>{randomName}</h3>
+                <p>{randomMessage}</p>
+              </>
+            )}
           </div>
         </div>
       )}

@@ -13,8 +13,16 @@ window.addEventListener("load", () => {
 
 export async function fetchUrls() {
   const { websites, error } = await fetchApiData()
-  if (!error) {
+  if (websites.length > 0) {
     highlightSearchResults(websites)
+  } else {
+    const resultStats = document.getElementById("extabar")
+    if (resultStats) {
+      const loadingText = document.createElement("span")
+      loadingText.innerText = "Extension Loading"
+      loadingText.style.color = "red"
+      resultStats.parentNode?.insertBefore(loadingText, resultStats.nextSibling)
+    }
   }
 }
 
